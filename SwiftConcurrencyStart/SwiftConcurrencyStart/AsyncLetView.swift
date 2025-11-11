@@ -30,6 +30,13 @@ struct AsyncLetView: View {
                 Task {
                     do {
                         async let fetchImage1 = fetchImage()
+                        async let fetchTitle1 = fetchTitle()
+                        
+                        let (image, title) = await (try fetchImage1, fetchTitle1)
+                        
+                        
+                        
+                        
                         async let fetchImage2 = fetchImage()
                         async let fetchImage3 = fetchImage()
                         async let fetchImage4 = fetchImage()
@@ -58,9 +65,13 @@ struct AsyncLetView: View {
         }
     }
     
+    func fetchTitle() async -> String {
+        return "New TITLE"
+    }
+    
     func fetchImage() async throws -> UIImage {
         do {
-            let url = URL(string: "https://picsum.photos/200")!
+            let url = URL(string: "https://picsum.photos/300")!
             
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
             
