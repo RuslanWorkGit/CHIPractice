@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiftConcurrencyStartApp: App {
     var body: some Scene {
         WindowGroup {
-            StructClassActorView()
+            StructClassActorHomeView()
         }
     }
 }

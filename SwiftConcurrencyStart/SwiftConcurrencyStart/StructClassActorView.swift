@@ -6,18 +6,57 @@
 //
 
 import SwiftUI
+import Combine
+
+
+class StructClassActorViewModel: ObservableObject {
+    
+    @Published var title: String = ""
+    
+    init() {
+        print("VIEWMODEL INIT")
+    }
+    
+    
+}
+
+
 
 struct StructClassActorView: View {
+    
+    @StateObject private var viewModel = StructClassActorViewModel()
+    let isActive: Bool
+    
+    init(isActive: Bool) {
+        self.isActive = isActive
+        print("INIT VIEW")
+    }
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+            .background(isActive ? .red : .blue)
             .onAppear {
-                runTest()
+                //runTest()
+            }
+    }
+}
+
+struct StructClassActorHomeView: View {
+    
+    @State private var isActive: Bool = false
+    
+    var body: some View {
+        StructClassActorView(isActive: isActive)
+            .onTapGesture {
+                isActive.toggle()
             }
     }
 }
 
 #Preview {
-    StructClassActorView()
+    StructClassActorView(isActive: true)
 }
 
 
