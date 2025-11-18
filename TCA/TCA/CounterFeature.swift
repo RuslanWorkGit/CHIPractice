@@ -35,6 +35,9 @@ struct CounterFeature {
     
     nonisolated enum CancelID { case timer }
     
+    @Dependency(\.continuousClock) var clock
+    @Dependency(\.textFact) var textFact
+    
     var body: some Reducer<State, Action>  {
         Reduce { state, action in
             switch action {
@@ -46,14 +49,18 @@ struct CounterFeature {
             case .factButtonTapped:
                 state.fact = nil
                 state.isLoading = true
-                return .run { send in
-                    let url = URL(string: "https://catfact.ninja/fact")!
-                    let (data, _) = try await URLSession.shared.data(from: url)
-                    let response = try JSONDecoder().decode(CatFact.self, from: data)
-                    await send(.factResponse(response.fact))
-                } catch: { error, send in
-                    await send(.factResponse(error.localizedDescription))
+                return .run { [count = state.count] send in
+                    let fact = try await self.textFact.fetch() //можна передати count для fetch за потреби
+                    await send(.factResponse(fact))
                 }
+//                return .run { send in
+//                    let url = URL(string: "https://catfact.ninja/fact")!
+//                    let (data, _) = try await URLSession.shared.data(from: url)
+//                    let response = try JSONDecoder().decode(CatFact.self, from: data)
+//                    await send(.factResponse(response.fact))
+//                } catch: { error, send in
+//                    await send(.factResponse(error.localizedDescription))
+//                }
                 
             case let .factResponse(fact):
                 state.fact = fact
@@ -74,10 +81,11 @@ struct CounterFeature {
                 state.isTimerRunning.toggle()
                 if state.isTimerRunning {
                     return .run { send in
-                        while true {
-                            try await Task.sleep(for: .seconds(1))
+                        
+                        for await _ in await self.clock.timer(interval: .seconds(1)) {
                             await send(.timerTick)
                         }
+                        
                     }
                     .cancellable(id: CancelID.timer)
                 } else {

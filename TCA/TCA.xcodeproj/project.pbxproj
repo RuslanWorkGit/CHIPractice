@@ -10,11 +10,36 @@
 		CEC8DBE72EC68CD600A1AF91 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = CEC8DBE62EC68CD600A1AF91 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		CE13F6EB2ECC595A00370797 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CED03B7A2EC67BFF00E7A0F7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CED03B812EC67BFF00E7A0F7;
+			remoteInfo = TCA;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		CE13F6E72ECC595A00370797 /* TCATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TCATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED03B822EC67BFF00E7A0F7 /* TCA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TCA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CE13F6F02ECC596700370797 /* Exceptions for "TCATests" folder in "TCA" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CounterFeatureTests.swift,
+			);
+			target = CED03B812EC67BFF00E7A0F7 /* TCA */;
+		};
+		CE13F6F12ECC596700370797 /* Exceptions for "TCATests" folder in "TCATests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CounterFeatureTests.swift,
+			);
+			target = CE13F6E62ECC595A00370797 /* TCATests */;
+		};
 		CEC8DBEB2ECB31F500A1AF91 /* Exceptions for "TCA" folder in "TCA" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -25,6 +50,15 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		CE13F6E82ECC595A00370797 /* TCATests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CE13F6F02ECC596700370797 /* Exceptions for "TCATests" folder in "TCA" target */,
+				CE13F6F12ECC596700370797 /* Exceptions for "TCATests" folder in "TCATests" target */,
+			);
+			path = TCATests;
+			sourceTree = "<group>";
+		};
 		CED03B842EC67BFF00E7A0F7 /* TCA */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -36,6 +70,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CE13F6E42ECC595A00370797 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CED03B7F2EC67BFF00E7A0F7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -58,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				CED03B842EC67BFF00E7A0F7 /* TCA */,
+				CE13F6E82ECC595A00370797 /* TCATests */,
 				CE0D78FF2EC68B30009CAE37 /* Frameworks */,
 				CED03B832EC67BFF00E7A0F7 /* Products */,
 			);
@@ -67,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				CED03B822EC67BFF00E7A0F7 /* TCA.app */,
+				CE13F6E72ECC595A00370797 /* TCATests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -74,6 +117,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CE13F6E62ECC595A00370797 /* TCATests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE13F6EF2ECC595A00370797 /* Build configuration list for PBXNativeTarget "TCATests" */;
+			buildPhases = (
+				CE13F6E32ECC595A00370797 /* Sources */,
+				CE13F6E42ECC595A00370797 /* Frameworks */,
+				CE13F6E52ECC595A00370797 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE13F6EC2ECC595A00370797 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CE13F6E82ECC595A00370797 /* TCATests */,
+			);
+			name = TCATests;
+			packageProductDependencies = (
+			);
+			productName = TCATests;
+			productReference = CE13F6E72ECC595A00370797 /* TCATests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CED03B812EC67BFF00E7A0F7 /* TCA */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CED03B8D2EC67C0100E7A0F7 /* Build configuration list for PBXNativeTarget "TCA" */;
@@ -107,6 +173,10 @@
 				LastSwiftUpdateCheck = 2610;
 				LastUpgradeCheck = 2610;
 				TargetAttributes = {
+					CE13F6E62ECC595A00370797 = {
+						CreatedOnToolsVersion = 26.1.1;
+						TestTargetID = CED03B812EC67BFF00E7A0F7;
+					};
 					CED03B812EC67BFF00E7A0F7 = {
 						CreatedOnToolsVersion = 26.1.1;
 					};
@@ -130,11 +200,19 @@
 			projectRoot = "";
 			targets = (
 				CED03B812EC67BFF00E7A0F7 /* TCA */,
+				CE13F6E62ECC595A00370797 /* TCATests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CE13F6E52ECC595A00370797 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CED03B802EC67BFF00E7A0F7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -145,6 +223,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CE13F6E32ECC595A00370797 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CED03B7E2EC67BFF00E7A0F7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -154,7 +239,57 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		CE13F6EC2ECC595A00370797 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CED03B812EC67BFF00E7A0F7 /* TCA */;
+			targetProxy = CE13F6EB2ECC595A00370797 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		CE13F6ED2ECC595A00370797 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 255G24QWZ2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ukrlan.TCATests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TCA.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TCA";
+			};
+			name = Debug;
+		};
+		CE13F6EE2ECC595A00370797 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 255G24QWZ2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ukrlan.TCATests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TCA.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TCA";
+			};
+			name = Release;
+		};
 		CED03B8B2EC67C0100E7A0F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -345,6 +480,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CE13F6EF2ECC595A00370797 /* Build configuration list for PBXNativeTarget "TCATests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE13F6ED2ECC595A00370797 /* Debug */,
+				CE13F6EE2ECC595A00370797 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CED03B7D2EC67BFF00E7A0F7 /* Build configuration list for PBXProject "TCA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
