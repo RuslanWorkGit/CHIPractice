@@ -20,7 +20,7 @@ struct AddContactView: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem {
                 Button("Cancel") {
                     store.send(.cancellButtonTapped)
                     
