@@ -15,7 +15,20 @@ struct NewContactsView: View {
         NavigationStack {
             List {
                 ForEach(store.contacts) { contact in
-                    Text(contact.name)
+                    HStack {
+                        Text(contact.name)
+                        
+                        Spacer()
+                        
+                        Button {
+                            store.send(.deleteButtonTapped(id: contact.id))
+                        } label: {
+                            Image(systemName: "trash")
+                                .foregroundStyle(.red)
+                        }
+                        
+                    }
+                    
                 }
             }
             .navigationTitle("NewContacts")
@@ -26,13 +39,18 @@ struct NewContactsView: View {
                     } label: {
                         Image(systemName: "plus")
                     }
-
+                    
                 }
             }
         }
-        .sheet(item: $store.scope(state: \.addContact, action: \.addContact)) { addNewContactStore in
-            AddNewContactView(store: addNewContactStore)
+        .sheet(
+            item: $store.scope(state: \.destination?.addContact, action: \.destination.addContact)
+        ) { addNewContactStore in
+            NavigationStack {
+                AddNewContactView(store: addNewContactStore)
+            }
         }
+        .alert($store.scope(state: \.destination?.alert, action: \.destination.alert))
     }
 }
 
