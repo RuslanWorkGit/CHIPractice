@@ -80,7 +80,7 @@ final class WeatherAPIClient {
         }
         
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        //decoder.keyDecodingStrategy = .convertFromSnakeCase
         
         do {
             

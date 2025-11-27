@@ -12,6 +12,15 @@ struct FirstView: View {
     
     var body: some View {
         VStack {
+            
+            Button {
+                Task {
+                    await viewModel.fetchData()
+                }
+            } label: {
+                Text("Reload data")
+            }
+
             if let weather = viewModel.weatherResult {
                 Text("Latitude: \(weather.latitude)")
                 Text("Longitude: \(weather.longitude)")
@@ -19,10 +28,11 @@ struct FirstView: View {
                 
                 List{
                     ForEach(Array(weather.hourly.time.enumerated()), id: \.offset) { index, time in
-                        let temp = weather.hourly.relativehumidity2m[index]
-                        let humidity = weather.hourly.relativehumidity2m[index]
+                        let temp = weather.hourly.temperature2m[index]
+                        let humidity = weather.hourly.relativeHumidity2m[index]
+                        let timeText = DateFormatterService.formatedDate(from: time)
                         
-                        Text("\(time) | \(temp, specifier: "%.1f")C | \(humidity, specifier: "%.1f")")
+                        Text("\(timeText) | \(temp, specifier: "%.1f")C | \(humidity, specifier: "%.1f")")
                     }
                 }
             } else if viewModel.isLoading {
