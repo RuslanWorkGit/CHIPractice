@@ -9,10 +9,10 @@
 //
 //struct FirstView: View {
 //    @StateObject private var viewModel = FirstViewModel()
-//    
+//
 //    var body: some View {
 //        VStack {
-//            
+//
 //            Button {
 //                Task {
 //                    await viewModel.fetchData()
@@ -25,13 +25,13 @@
 //                Text("Latitude: \(weather.latitude)")
 //                Text("Longitude: \(weather.longitude)")
 //                Text("Timezone: \(weather.timezone)")
-//                
+//
 //                List{
 //                    ForEach(Array(weather.hourly.time.enumerated()), id: \.offset) { index, time in
 //                        let temp = weather.hourly.temperature2m[index]
 //                        let humidity = weather.hourly.relativeHumidity2m[index]
 //                        let timeText = DateFormatterService.formatedDate(from: time)
-//                        
+//
 //                        Text("\(timeText) | \(temp, specifier: "%.1f")C | \(humidity, specifier: "%.1f")")
 //                    }
 //                }
@@ -40,7 +40,7 @@
 //            } else {
 //                Text("No data")
 //            }
-//            
+//
 //        }
 //        .task {
 //            await viewModel.fetchData()
@@ -53,61 +53,75 @@ import SwiftUI
 
 struct FirstView: View {
     @StateObject private var viewModel = FirstViewModel()
+    @State private var showSettings = false
     
     var body: some View {
-        VStack {
-            
-            Button {
-                Task {
-                    await viewModel.fetchData()
-                }
-            } label: {
-                Text("Reload data")
-            }
-            
-            if let warning = viewModel.rainWarning {
-                            Text(warning)
-                                .font(.headline)
-                                .foregroundColor(.blue)
-                                .padding(.vertical, 8)
-                        }
-            
-            if let lastUpdate = viewModel.lastUpdateText {
-                Text("Last update: \(lastUpdate)")
-                    .font(.footnote)
-                    .foregroundColor(.gray)
-            }
-            
-            if let weather = viewModel.weatherResult {
-                Text("Latitude: \(weather.latitude)")
-                Text("Longitude: \(weather.longitude)")
-                Text("Timezone: \(weather.timezone)")
+        NavigationStack {
+            VStack {
                 
-                List {
-                    ForEach(Array(weather.hourly.time.enumerated()), id: \.offset) { index, time in
-                        let temp = weather.hourly.temperature2m[index]
-                        let humidity = weather.hourly.relativeHumidity2m[index]
-                        let timeText = DateFormatterService.formatedDate(from: time)
-                        
-                        let tempText = DateFormatterService.formattedTemperature(
-                            temp,
-                            unit: AppSettings.shared.temperatureUnit
-                        )
-                        
-                        Text("\(timeText) | \(tempText) | \(humidity)%")
+                Button {
+                    Task {
+                        await viewModel.fetchData()
                     }
+                } label: {
+                    Text("Reload data")
                 }
-            } else if viewModel.isLoading {
-                Text("IS Loading")
-            } else {
-                Text("No data")
+                
+                if let warning = viewModel.rainWarning {
+                    Text(warning)
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                        .padding(.vertical, 8)
+                }
+                
+                if let lastUpdate = viewModel.lastUpdateText {
+                    Text("Last update: \(lastUpdate)")
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                }
+                
+                if let weather = viewModel.weatherResult {
+                    Text("Latitude: \(weather.latitude)")
+                    Text("Longitude: \(weather.longitude)")
+                    Text("Timezone: \(weather.timezone)")
+                    
+                    List {
+                        ForEach(Array(weather.hourly.time.enumerated()), id: \.offset) { index, time in
+                            let temp = weather.hourly.temperature2m[index]
+                            let humidity = weather.hourly.relativeHumidity2m[index]
+                            let timeText = DateFormatterService.formatedDate(from: time)
+                            
+                            let tempText = DateFormatterService.formattedTemperature(
+                                temp,
+                                unit: AppSettings.shared.temperatureUnit
+                            )
+                            
+                            Text("\(timeText) | \(tempText) | \(humidity)%")
+                        }
+                    }
+                } else if viewModel.isLoading {
+                    Text("IS Loading")
+                } else {
+                    Text("No data")
+                }
             }
-        }
-        .task {
-            await viewModel.fetchData()
-        }
-        .onAppear {
-            viewModel.startAutoRefresh()
+            .toolbar {
+                Button {
+                    showSettings = true
+                } label: {
+                    Image(systemName: "gearshape")
+                }
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingView()
+            }
+            
+            .task {
+                await viewModel.fetchData()
+            }
+            .onAppear {
+                viewModel.startAutoRefresh()
+            }
         }
     }
 }
