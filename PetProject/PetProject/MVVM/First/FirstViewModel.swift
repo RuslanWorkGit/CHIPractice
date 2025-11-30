@@ -38,10 +38,13 @@ final class FirstViewModel: ObservableObject {
     @Published var weatherResult: WeatherForecastResponse?
     @Published var isLoading = false
     @Published var lastUpdateText: String?
+    @Published var rainWarning: String?
     
     private let client = WeatherAPIClient()
     private let storage = WeatherStorage.shared
     private var refreshTimer: Timer?
+    
+    private let rainThreshold = 0.1
     
     deinit {
         refreshTimer?.invalidate()
@@ -65,6 +68,7 @@ final class FirstViewModel: ObservableObject {
             
             storage.saveForecast(forecast)
             updateLastUpdateText()
+            updateRainWarning()
             
         } catch {
             print("ERROR Fetch \(error.localizedDescription)")
@@ -92,5 +96,37 @@ final class FirstViewModel: ObservableObject {
         } else {
             lastUpdateText = nil
         }
+    }
+    
+    private func updateRainWarning() {
+        guard let hourly = weatherResult?.hourly else {
+            rainWarning = nil
+            return
+        }
+        
+        let now = Date()
+        
+        // time і precipitation синхронні за індексом
+        for (index, amount) in hourly.precipitation.enumerated() {
+            // шукаємо перший час, коли опади > порога
+            guard amount > rainThreshold else { continue }
+            
+            let timeString = hourly.time[index]
+            guard let date = DateFormatterService.date(from: timeString) else { continue }
+            guard date > now else { continue } // пропускаємо те, що вже у минулому
+            
+            if let intervalString = DateFormatterService.timeIntervalString(from: now, to: date) {
+                // тут ми самі додаємо "через", бо DateComponentsFormatter не знає про минуле/майбутнє,
+                // він форматує лише тривалість (duration) :contentReference[oaicite:2]{index=2}
+                rainWarning = "Дощ очікується через \(intervalString)"
+            } else {
+                rainWarning = nil
+            }
+            
+            return
+        }
+        
+        // якщо в найближчих годинах опадів немає
+        rainWarning = "У найближчий час дощу не очікується"
     }
 }

@@ -80,4 +80,26 @@ enum DateFormatterService {
         return outputTimeDateFormatter.string(from: date)
     }
     
+    // MARK: - Interval formatter для "3 години 15 хвилин"
+    
+    private static let intervalFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute]
+        formatter.unitsStyle = .full      // "3 hours, 15 minutes"
+        formatter.maximumUnitCount = 2
+        return formatter
+    }()
+    
+    /// Повертаємо Date з API-рядка "yyyy-MM-dd'T'HH:mm"
+    static func date(from timeString: String) -> Date? {
+        return inputFormatter.date(from: timeString)
+    }
+    
+    /// Форматуємо інтервал між двома датами в людинозрозумілу строку
+    static func timeIntervalString(from start: Date, to end: Date) -> String? {
+        let interval = end.timeIntervalSince(start)
+        guard interval > 0 else { return nil }
+        return intervalFormatter.string(from: interval)
+    }
+    
 }

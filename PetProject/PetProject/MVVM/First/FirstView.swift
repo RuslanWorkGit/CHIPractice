@@ -65,6 +65,13 @@ struct FirstView: View {
                 Text("Reload data")
             }
             
+            if let warning = viewModel.rainWarning {
+                            Text(warning)
+                                .font(.headline)
+                                .foregroundColor(.blue)
+                                .padding(.vertical, 8)
+                        }
+            
             if let lastUpdate = viewModel.lastUpdateText {
                 Text("Last update: \(lastUpdate)")
                     .font(.footnote)
