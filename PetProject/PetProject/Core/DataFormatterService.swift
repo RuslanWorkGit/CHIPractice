@@ -35,6 +35,37 @@ enum DateFormatterService {
         return formatter
     }()
     
+    // MARK: - Temperature
+    
+    private static let temperatureFormatter: MeasurementFormatter = {
+        let formatter = MeasurementFormatter()
+        formatter.locale = .current
+        formatter.numberFormatter.maximumFractionDigits = 0
+        formatter.unitOptions = .providedUnit
+        return formatter
+    }()
+    
+    static func formattedTemperature(_ celsius: Double, unit: TemperatureUnit) -> String {
+        let measurement: Measurement<UnitTemperature>
+        
+        switch unit {
+        case .celsius:
+            measurement = Measurement(value: celsius, unit: .celsius)
+        case .fahrenheit:
+            measurement = Measurement(value: celsius, unit: .celsius).converted(to: .fahrenheit)
+        }
+        
+        return temperatureFormatter.string(from: measurement)
+    }
+    
+    // MARK: - Relative date
+    
+    static func formattedRelativeDate(from date: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.locale = .current
+        return formatter.localizedString(for: date, relativeTo: Date())
+    }
+    
     static func formatedHour(from timeString: String) -> String {
         guard let date = inputFormatter.date(from: timeString) else {
             return timeString
