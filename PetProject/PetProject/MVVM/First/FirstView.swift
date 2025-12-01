@@ -86,7 +86,8 @@ struct FirstView: View {
                     Text("Timezone: \(weather.timezone)")
                     
                     List {
-                        ForEach(Array(weather.hourly.time.enumerated()), id: \.offset) { index, time in
+                        ForEach(weather.hourly.time.indices, id: \.self) { index in
+                            let time = weather.hourly.time[index]
                             let temp = weather.hourly.temperature2m[index]
                             let humidity = weather.hourly.relativeHumidity2m[index]
                             let timeText = DateFormatterService.formatedDate(from: time)
@@ -95,9 +96,36 @@ struct FirstView: View {
                                 temp,
                                 unit: AppSettings.shared.temperatureUnit
                             )
-                            let windSpeed = weather.current.windSpeed
                             
-                            Text("\(timeText) | \(tempText) | \(humidity)% | \(windSpeed)")
+                            let windSpeed = weather.current.windSpeed
+                            let windText = DateFormatterService.formattedWindSpeed(windSpeed, unit: AppSettings.shared.windSpeedUnit)
+                            //let windText = "\(windSpeed)"
+                            
+                            NavigationLink {
+                                DetailsView(timeText: timeText, temperatureText: tempText, humidity: humidity, windSpeedText: windText)
+                            } label: {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(timeText)
+                                            .font(.subheadline)
+                                        Text(tempText)
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    Spacer()
+                                    Text("\(humidity)%")
+//                                    Text(windText)
+//                                        .font(.caption)
+                                }
+                                
+                            }
+                            
+                            
+                            
+                            //                                Text("\(timeText) | \(tempText) | \(humidity)% | \(windSpeed)")
+                            
+                            
+                            
                         }
                     }
                 } else if viewModel.isLoading {
@@ -107,14 +135,14 @@ struct FirstView: View {
                 }
             }
             .toolbar {
-                Button {
-                    showSettings = true
+                NavigationLink {
+                    SettingView()
                 } label: {
+                    
                     Image(systemName: "gearshape")
+
                 }
-            }
-            .sheet(isPresented: $showSettings) {
-                SettingView()
+
             }
             
             .task {

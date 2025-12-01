@@ -5,73 +5,6 @@
 //  Created by user on 26.11.2025.
 //
 
-
-//import Foundation
-//
-//enum TemperatureUnit: String, Codable, CaseIterable {
-//    case celsius
-//    case fahrenheit
-//}
-//
-//final class AppSettings {
-//    static let shared = AppSettings()
-//    private init() {}
-//    
-//    private let defaults = UserDefaults.standard
-//    
-//    private enum Keys {
-//        static let temperatureUnit = "settings.temperatureUnit"
-//        static let lastLatitude    = "settings.lastLatitude"
-//        static let lastLongitude   = "settings.lastLongitude"
-//        static let lastUpdateDate  = "settings.lastUpdateDate"
-//    }
-//    
-//    // Одиниці вимірювання температури
-//    var temperatureUnit: TemperatureUnit {
-//        get {
-//            if let raw = defaults.string(forKey: Keys.temperatureUnit),
-//               let value = TemperatureUnit(rawValue: raw) {
-//                return value
-//            }
-//            return .celsius
-//        }
-//        set {
-//            defaults.set(newValue.rawValue, forKey: Keys.temperatureUnit)
-//        }
-//    }
-//    
-//    // Збереження / отримання останньої локації
-//    func saveLastLocation(latitude: Double, longitude: Double) {
-//        defaults.set(latitude, forKey: Keys.lastLatitude)
-//        defaults.set(longitude, forKey: Keys.lastLongitude)
-//    }
-//    
-//    func lastLocation() -> (lat: Double, lon: Double)? {
-//        let lat = defaults.double(forKey: Keys.lastLatitude)
-//        let lon = defaults.double(forKey: Keys.lastLongitude)
-//        
-//        if lat == 0 && lon == 0 { return nil }
-//        return (lat, lon)
-//    }
-//    
-//    // Останній час оновлення
-//    var lastUpdateDate: Date? {
-//        get {
-//            if let timeInterval = defaults.object(forKey: Keys.lastUpdateDate) as? TimeInterval {
-//                return Date(timeIntervalSince1970: timeInterval)
-//            }
-//            return nil
-//        }
-//        set {
-//            if let date = newValue {
-//                defaults.set(date.timeIntervalSince1970, forKey: Keys.lastUpdateDate)
-//            } else {
-//                defaults.removeObject(forKey: Keys.lastUpdateDate)
-//            }
-//        }
-//    }
-//}
-
 import Foundation
 
 enum TemperatureUnit: String, Codable, CaseIterable {
@@ -89,9 +22,9 @@ enum RainThreshold: Double, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .low:    return "0.1 мм"
-        case .medium: return "0.5 мм"
-        case .high:   return "1.0 мм"
+        case .low:    return "0.1 mm"
+        case .medium: return "0.5 mm"
+        case .high:   return "1.0 mm"
         }
     }
 }
@@ -103,8 +36,8 @@ enum WindSpeedUnit: String, Codable, CaseIterable {
 
     var title: String {
         switch self {
-        case .kilometersPerHour: return "км/год"
-        case .metersPerSecond:   return "м/с"
+        case .kilometersPerHour: return "km/hour"
+        case .metersPerSecond:   return "m/s"
         }
     }
 }
