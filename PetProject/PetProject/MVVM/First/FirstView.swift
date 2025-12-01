@@ -95,8 +95,9 @@ struct FirstView: View {
                                 temp,
                                 unit: AppSettings.shared.temperatureUnit
                             )
+                            let windSpeed = weather.current.windSpeed
                             
-                            Text("\(timeText) | \(tempText) | \(humidity)%")
+                            Text("\(timeText) | \(tempText) | \(humidity)% | \(windSpeed)")
                         }
                     }
                 } else if viewModel.isLoading {

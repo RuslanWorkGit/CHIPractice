@@ -15,6 +15,7 @@ struct WeatherForecastResponse: Codable {
     let longitude: Double
     let generationtimeMs: Double
     let timezone: String
+    let current: Current
     let hourly: Hourly
     
     enum CodingKeys: String, CodingKey {
@@ -22,6 +23,7 @@ struct WeatherForecastResponse: Codable {
         case longitude
         case generationtimeMs = "generationtime_ms"
         case timezone
+        case current
         case hourly
     }
 }
@@ -37,5 +39,19 @@ struct Hourly: Codable {
         case temperature2m       = "temperature_2m"       // temperature_2m -> temperature2m
         case relativeHumidity2m  = "relativehumidity_2m"  // relativehumidity_2m -> relativehumidity2m
         case precipitation
+    }
+}
+
+struct Current: Codable {
+    let time: String
+    let interval: Int
+    let windSpeed: Double
+    let windDirection: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case time
+        case interval
+        case windSpeed = "wind_speed_10m"
+        case windDirection = "wind_direction_10m"
     }
 }
