@@ -83,6 +83,9 @@ final class StudyPlannerService {
             for try await partial in stream {
                 // partial.content – це текст на даний момент (не тільки “нові” токени,
                 // а весь поточний генерат)
+                if Task.isCancelled {
+                    break
+                }
                 onPartial(partial.content)
             }
         }

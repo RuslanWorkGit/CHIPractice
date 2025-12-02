@@ -1,4 +1,4 @@
- //
+//
 //  ContentView.swift
 //  FoundationModelTest
 //
@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-
+    
     @StateObject private var viewModel = StudyPlannerViewModel()
-
+    @State private var generationTask: Task<Void, Never>?
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
                 // Ввід теми
                 TextField("Topic (e.g. Swift Concurrency)",
                           text: $viewModel.subject)
-                    .textFieldStyle(.roundedBorder)
-                    .padding(.horizontal)
-
+                .textFieldStyle(.roundedBorder)
+                .padding(.horizontal)
+                
                 // Рівень
                 Picker("Level", selection: $viewModel.selectedLevel) {
                     ForEach(StudyPlannerViewModel.Level.allCases) { level in
@@ -28,31 +29,42 @@ struct ContentView: View {
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
-
+                
                 // Кількість тижнів
                 Stepper("Number of weeks: \(viewModel.weeks)",
                         value: $viewModel.weeks,
                         in: 1...12)
                 .padding(.horizontal)
-
+                
                 // Кнопка генерації
+                
                 Button {
-                    Task {
-                        await viewModel.generate()
-                    }
-                } label: {
                     if viewModel.isGenerating {
-                        ProgressView()
-                            .padding(.horizontal)
+                        generationTask?.cancel()
+                        generationTask = nil
                     } else {
-                        Text("Generate plan")
-                            .frame(maxWidth: .infinity)
+                        generationTask = Task {
+                            await viewModel.generate()
+                            generationTask = nil
+                        }
                     }
+                    
+                } label: {
+                    HStack {
+                        if viewModel.isGenerating {
+                            Image(systemName: "stop.fill")
+                            Text("Stop")
+                        } else {
+                            Text("Generate plan")
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    
                 }
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
-                .disabled(viewModel.isGenerating)
-
+                
+                
                 // Помилка
                 if let error = viewModel.errorMessage {
                     Text(error)
@@ -60,7 +72,7 @@ struct ContentView: View {
                         .font(.footnote)
                         .padding(.horizontal)
                 }
-
+                
                 // Результат
                 ScrollView {
                     Text(viewModel.resultText.isEmpty ? "A plan will appear here" : viewModel.resultText)

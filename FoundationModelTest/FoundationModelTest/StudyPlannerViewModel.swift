@@ -10,14 +10,15 @@ import Combine
 
 @MainActor
 final class StudyPlannerViewModel: ObservableObject {
-
+    
+    
     enum Level: String, CaseIterable, Identifiable {
         case beginner = "Beginner"
         case intermediate = "Intermediate"
         case advanced = "Advanced"
-
+        
         var id: String { rawValue }
-
+        
         var title: String {
             switch self {
             case .beginner:     return "Beginer"
@@ -26,45 +27,52 @@ final class StudyPlannerViewModel: ObservableObject {
             }
         }
     }
-
+    
     @Published var subject: String = ""
     @Published var selectedLevel: Level = .beginner
     @Published var weeks: Int = 4
-
+    
     @Published var resultText: String = ""
     @Published var isGenerating = false
     @Published var errorMessage: String?
-
-
+    
+    
     private let service = StudyPlannerService()
-
+    
     func generate() async {
         guard !subject.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             errorMessage = "Enter a topic"
             return
         }
-
+        
         isGenerating = true
         errorMessage = nil
         resultText = ""
         
-
+        defer {
+            isGenerating = false
+        }
+        
+        
         do {
-//            let plan = try await service.generatePlan(
-//                subject: subject,
-//                level: selectedLevel.rawValue,
-//                weeks: weeks
-//            )
-//            resultText = plan
+            //            let plan = try await service.generatePlan(
+            //                subject: subject,
+            //                level: selectedLevel.rawValue,
+            //                weeks: weeks
+            //            )
+            //            resultText = plan
             try await service.streamPlan(subject: subject, level: selectedLevel.rawValue, weeks: weeks) { [weak self] partial in
-                self?.resultText = partial
+                guard let self = self, !Task.isCancelled else { return }
+                self.resultText = partial
             }
+        } catch is CancellationError {
+            
         } catch let AIAvailabilityError.unavailable(reason) {
             errorMessage = "Model unavalable: \(reason)"
         } catch {
             errorMessage = "Error: \(error.localizedDescription)"
         }
-
+        
         isGenerating = false
     }
 }
