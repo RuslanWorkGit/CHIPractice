@@ -36,8 +36,21 @@ final class StudyPlannerViewModel: ObservableObject {
     @Published var isGenerating = false
     @Published var errorMessage: String?
     
+    @Published var messages: [ChatMessage] = []
+    @Published var inputText: String = ""
+    
     
     private let service = StudyPlannerService()
+    
+    init() {
+        // Початкове повідомлення асистента (опціонально)
+        messages.append(
+            ChatMessage(
+                role: .assistant,
+                text: "Hello! Enter the topic, choose the level and number of weeks — I will create a curriculum"
+            )
+        )
+    }
     
     func generate() async {
         guard !subject.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -74,5 +87,48 @@ final class StudyPlannerViewModel: ObservableObject {
         }
         
         isGenerating = false
+    }
+    
+    func send() async {
+        let trimmed = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            errorMessage = "Ask a quateion or topic"
+            return
+        }
+        
+        // 1. Додаємо повідомлення юзера
+        let userMessage = ChatMessage(role: .user, text: trimmed)
+        messages.append(userMessage)
+        inputText = ""
+        errorMessage = nil
+        
+        // 2. Додаємо пустий "слот" для відповіді моделі
+        let assistantIndex = messages.count
+        messages.append(ChatMessage(role: .assistant, text: ""))
+        
+        isGenerating = true
+        defer { isGenerating = false }
+        
+        do {
+            try await service.streamPlan(
+                subject: trimmed,
+                level: selectedLevel.rawValue,
+                weeks: weeks
+            ) { [weak self] partial in
+                guard let self = self else { return }
+                guard !Task.isCancelled else { return }
+                
+                // Оновлюємо текст останнього assistant-повідомлення
+                if assistantIndex < self.messages.count {
+                    self.messages[assistantIndex].text = partial
+                }
+            }
+        } catch is CancellationError {
+            // Юзер натиснув Stop — просто тихо виходимо
+        } catch let AIAvailabilityError.unavailable(reason) {
+            errorMessage = "Модель недоступна: \(reason)"
+        } catch {
+            errorMessage = "Сталася помилка: \(error.localizedDescription)"
+        }
     }
 }
