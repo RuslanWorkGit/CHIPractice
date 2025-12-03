@@ -14,7 +14,7 @@ enum AIAvailabilityError: Error {
 
 @MainActor
 final class StudyPlannerService {
-
+    
     private let model = SystemLanguageModel.default
     private lazy var session = LanguageModelSession(
         instructions: """
@@ -23,13 +23,13 @@ final class StudyPlannerService {
         Always structure the answer by weeks with bullet points.
         """
     )
-
+    
     func generatePlan(
         subject: String,
         level: String,
         weeks: Int
     ) async throws -> String {
-
+        
         // 1. Перевіряємо, що модель взагалі доступна
         switch model.availability {
         case .available:
@@ -37,56 +37,52 @@ final class StudyPlannerService {
         case .unavailable(let reason):
             throw AIAvailabilityError.unavailable(reason: "\(reason)")
         }
-
+        
         // 2. Формуємо промпт
         let prompt = """
         Create a \(weeks)-week study plan for the topic: "\(subject)".
-
+        
         Student level: \(level).
-
+        
         For each week:
         - Give a short title.
         - List 3–5 concrete tasks (reading, practice, mini-projects).
         - Approximate hours per week.
         """
-
+        
         // 3. Виклик моделі
         let response = try await session.respond(to: prompt)
         return response.content
     }
     
     func streamPlan(
-            subject: String,
-            level: String,
-            weeks: Int,
-            onPartial: @escaping (String) -> Void
-        ) async throws {
-            guard case .available = model.availability else {
-                throw AIAvailabilityError.unavailable(reason: "Model not available")
-            }
-
-            let prompt = """
+        subject: String,
+        level: String,
+        weeks: Int,
+        onPartial: @escaping (String) -> Void
+    ) async throws {
+        guard case .available = model.availability else {
+            throw AIAvailabilityError.unavailable(reason: "Model not available")
+        }
+        
+        let prompt = """
             Create a \(weeks)-week study plan for the topic: "\(subject)".
-
+            
             Student level: \(level).
-
+            
             For each week:
             - Give a short title.
             - List 3–5 concrete tasks.
             - Approximate hours per week.
             """
-
-            // ⬇️ тут магія: стрім замість одного респонсу
-            let stream = session.streamResponse(to: prompt)
-            // stream — це AsyncSequence зі snapshots часткової відповіді :contentReference[oaicite:1]{index=1}
-
-            for try await partial in stream {
-                // partial.content – це текст на даний момент (не тільки “нові” токени,
-                // а весь поточний генерат)
-                if Task.isCancelled {
-                    break
-                }
-                onPartial(partial.content)
+        
+        let stream = session.streamResponse(to: prompt)
+        
+        for try await partial in stream {
+            if Task.isCancelled {
+                break
             }
+            onPartial(partial.content)
         }
+    }
 }

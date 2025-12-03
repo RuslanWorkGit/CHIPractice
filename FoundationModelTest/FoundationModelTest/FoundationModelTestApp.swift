@@ -11,7 +11,10 @@ import SwiftUI
 struct FoundationModelTestApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            //ContentView()
+            //ContentViewTwo()
+            StudyAIView()
+            
         }
     }
 }

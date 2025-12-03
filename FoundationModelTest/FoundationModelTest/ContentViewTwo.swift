@@ -38,33 +38,33 @@ struct ContentViewTwo: View {
                 
                 // Кнопка генерації
                 
-                                Button {
-                                    if viewModel.isGenerating {
-                                        generationTask?.cancel()
-                                        generationTask = nil
-                                    } else {
-                                        generationTask = Task {
-                                            await viewModel.generate()
-                                            generationTask = nil
-                                        }
-                                    }
+                Button {
+                    if viewModel.isGenerating {
+                        generationTask?.cancel()
+                        generationTask = nil
+                    } else {
+                        generationTask = Task {
+                            await viewModel.generate()
+                            generationTask = nil
+                        }
+                    }
+                    
+                } label: {
+                    HStack {
+                        if viewModel.isGenerating {
+                            Image(systemName: "stop.fill")
+                            Text("Stop")
+                        } else {
+                            Text("Generate plan")
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    
+                }
+                .buttonStyle(.borderedProminent)
+                .padding(.horizontal)
                 
-                                } label: {
-                                    HStack {
-                                        if viewModel.isGenerating {
-                                            Image(systemName: "stop.fill")
-                                            Text("Stop")
-                                        } else {
-                                            Text("Generate plan")
-                                        }
-                                    }
-                                    .frame(maxWidth: .infinity)
                 
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .padding(.horizontal)
-                
-
                 
                 
                 // Error
@@ -74,8 +74,8 @@ struct ContentViewTwo: View {
                         .font(.footnote)
                         .padding(.horizontal)
                 }
-
-                 Result
+                
+                //Result
                 ScrollView {
                     Text(viewModel.resultText.isEmpty ? "A plan will appear here" : viewModel.resultText)
                         .frame(maxWidth: .infinity, alignment: .leading)

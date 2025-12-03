@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+
 @MainActor
 final class StudyPlannerViewModel: ObservableObject {
     
@@ -96,13 +97,11 @@ final class StudyPlannerViewModel: ObservableObject {
             return
         }
         
-        // 1. Додаємо повідомлення юзера
         let userMessage = ChatMessage(role: .user, text: trimmed)
         messages.append(userMessage)
         inputText = ""
         errorMessage = nil
         
-        // 2. Додаємо пустий "слот" для відповіді моделі
         let assistantIndex = messages.count
         messages.append(ChatMessage(role: .assistant, text: ""))
         
@@ -124,7 +123,7 @@ final class StudyPlannerViewModel: ObservableObject {
                 }
             }
         } catch is CancellationError {
-            // Юзер натиснув Stop — просто тихо виходимо
+            // STOP
         } catch let AIAvailabilityError.unavailable(reason) {
             errorMessage = "Модель недоступна: \(reason)"
         } catch {
