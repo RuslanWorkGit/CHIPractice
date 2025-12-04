@@ -10,7 +10,6 @@ import Foundation
 struct WeatherForecastResponse: Codable {
     
     // TODO: додати поля з потрібними значеннями
-    
     let latitude: Double
     let longitude: Double
     let generationtimeMs: Double
@@ -36,8 +35,8 @@ struct Hourly: Codable {
     
     enum CodingKeys: String, CodingKey {
         case time
-        case temperature2m       = "temperature_2m"       // temperature_2m -> temperature2m
-        case relativeHumidity2m  = "relativehumidity_2m"  // relativehumidity_2m -> relativehumidity2m
+        case temperature2m = "temperature_2m"
+        case relativeHumidity2m = "relativehumidity_2m"
         case precipitation
     }
 }

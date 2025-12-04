@@ -12,11 +12,10 @@ enum TemperatureUnit: String, Codable, CaseIterable {
     case fahrenheit
 }
 
-// Пороги опадів для попередження про дощ
 enum RainThreshold: Double, CaseIterable, Identifiable {
-    case low    = 0.1   // слабкий дощ
-    case medium = 0.5   // помітний
-    case high   = 1.0   // сильніший
+    case low    = 0.1
+    case medium = 0.5
+    case high   = 1.0
 
     var id: Double { rawValue }
 
@@ -29,7 +28,6 @@ enum RainThreshold: Double, CaseIterable, Identifiable {
     }
 }
 
-// Одиниці швидкості вітру
 enum WindSpeedUnit: String, Codable, CaseIterable {
     case kilometersPerHour
     case metersPerSecond
@@ -60,7 +58,6 @@ final class AppSettings {
     }
 
     // MARK: - Температура
-
     var temperatureUnit: TemperatureUnit {
         get {
             if let raw = defaults.string(forKey: Keys.temperatureUnit),
@@ -74,12 +71,9 @@ final class AppSettings {
         }
     }
 
-    // MARK: - Поріг дощу
-
+    // MARK: - для дощу
     var rainThreshold: RainThreshold {
         get {
-            // double(forKey:) поверне 0, якщо значення ще не збережене,
-            // тому спочатку перевіряємо, чи є ключ взагалі
             guard defaults.object(forKey: Keys.rainThreshold) != nil else {
                 return .low
             }
@@ -90,8 +84,6 @@ final class AppSettings {
             defaults.set(newValue.rawValue, forKey: Keys.rainThreshold)
         }
     }
-
-    // MARK: - Вкл / викл попереджень про дощ
 
     var isRainAlertEnabled: Bool {
         get {
@@ -106,8 +98,7 @@ final class AppSettings {
         }
     }
 
-    // MARK: - Одиниці швидкості вітру
-
+    // MARK: - Wind
     var windSpeedUnit: WindSpeedUnit {
         get {
             if let raw = defaults.string(forKey: Keys.windSpeedUnit),
@@ -120,8 +111,6 @@ final class AppSettings {
             defaults.set(newValue.rawValue, forKey: Keys.windSpeedUnit)
         }
     }
-
-    // MARK: - Остання локація
 
     func saveLastLocation(latitude: Double, longitude: Double) {
         defaults.set(latitude, forKey: Keys.lastLatitude)
@@ -136,8 +125,7 @@ final class AppSettings {
         return (lat, lon)
     }
 
-    // MARK: - Останній час оновлення
-
+    // MARK: - Last updates
     var lastUpdateDate: Date? {
         get {
             if let timeInterval = defaults.object(forKey: Keys.lastUpdateDate) as? TimeInterval {

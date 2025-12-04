@@ -89,9 +89,9 @@ final class WeatherAPIClient {
             return forecast
         } catch {
             if let decodingError = error as? DecodingError {
-                    print("❌ DecodingError:", decodingError)
+                    print("DecodingError:", decodingError)
                 } else {
-                    print("❌ Other error:", error)
+                    print("Other error:", error)
                 }
             throw WeatherAPIError.decodingFailed(error)
         }

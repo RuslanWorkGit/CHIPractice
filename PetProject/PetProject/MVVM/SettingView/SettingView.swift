@@ -18,8 +18,8 @@ struct SettingView: View {
         NavigationStack {
             Form {
                 // MARK: - Температура
-                Section("Температура") {
-                    Picker("Одиниці", selection: $selectedTemperatureUnit) {
+                Section("Temperature") {
+                    Picker("Units", selection: $selectedTemperatureUnit) {
                         ForEach(TemperatureUnit.allCases, id: \.self) { unit in
                             Text(unit == .celsius ? "°C" : "°F")
                                 .tag(unit)
@@ -31,13 +31,13 @@ struct SettingView: View {
                 }
 
                 // MARK: - Попередження про дощ
-                Section("Попередження про дощ") {
-                    Toggle("Показувати попередження", isOn: $isRainAlertEnabled)
+                Section("Rain warning") {
+                    Toggle("Show warnings", isOn: $isRainAlertEnabled)
                         .onChange(of: isRainAlertEnabled) {
                             AppSettings.shared.isRainAlertEnabled = isRainAlertEnabled
                         }
 
-                    Picker("Поріг опадів", selection: $selectedRainThreshold) {
+                    Picker("Precipitation threshold", selection: $selectedRainThreshold) {
                         ForEach(RainThreshold.allCases) { threshold in
                             Text(threshold.title)
                                 .tag(threshold)
@@ -51,8 +51,8 @@ struct SettingView: View {
                 }
 
                 // MARK: - Вітер
-                Section("Швидкість вітру") {
-                    Picker("Одиниці", selection: $selectedWindSpeedUnit) {
+                Section("Wind Speed") {
+                    Picker("Units", selection: $selectedWindSpeedUnit) {
                         ForEach(WindSpeedUnit.allCases, id: \.self) { unit in
                             Text(unit.title)
                                 .tag(unit)
@@ -66,13 +66,13 @@ struct SettingView: View {
 
                 // MARK: - Останні координати
                 if let location = AppSettings.shared.lastLocation() {
-                    Section("Остання локація") {
-                        Text("Широта: \(location.lat, specifier: "%.4f")")
-                        Text("Довгота: \(location.lon, specifier: "%.4f")")
+                    Section("Last location") {
+                        Text("latitude: \(location.lat, specifier: "%.4f")")
+                        Text("longitude: \(location.lon, specifier: "%.4f")")
                     }
                 }
             }
-            .navigationTitle("Налаштування")
+            .navigationTitle("Settings")
         }
         .onAppear {
             selectedTemperatureUnit = AppSettings.shared.temperatureUnit
