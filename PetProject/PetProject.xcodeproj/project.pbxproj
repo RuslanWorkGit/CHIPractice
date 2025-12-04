@@ -6,9 +6,45 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		CE2902C32EE1C53D00089530 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE13F7112ED64EC600370797 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE13F7182ED64EC600370797;
+			remoteInfo = PetProject;
+		};
+		CE2902D42EE1C5D900089530 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE13F7112ED64EC600370797 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE13F7182ED64EC600370797;
+			remoteInfo = PetProject;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		CE13F7192ED64EC600370797 /* PetProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE2902BF2EE1C53D00089530 /* PetProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PetProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE2902CE2EE1C5D900089530 /* PetProjectTestsUI.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PetProjectTestsUI.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CE2902C82EE1C54600089530 /* Exceptions for "PetProjectTests" folder in "PetProject" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Test.swift,
+			);
+			target = CE13F7182ED64EC600370797 /* PetProject */;
+		};
+		CE2902C92EE1C54600089530 /* Exceptions for "PetProjectTests" folder in "PetProjectTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Test.swift,
+			);
+			target = CE2902BE2EE1C53D00089530 /* PetProjectTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CE13F71B2ED64EC600370797 /* PetProject */ = {
@@ -16,10 +52,38 @@
 			path = PetProject;
 			sourceTree = "<group>";
 		};
+		CE2902C02EE1C53D00089530 /* PetProjectTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CE2902C82EE1C54600089530 /* Exceptions for "PetProjectTests" folder in "PetProject" target */,
+				CE2902C92EE1C54600089530 /* Exceptions for "PetProjectTests" folder in "PetProjectTests" target */,
+			);
+			path = PetProjectTests;
+			sourceTree = "<group>";
+		};
+		CE2902CF2EE1C5D900089530 /* PetProjectTestsUI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = PetProjectTestsUI;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		CE13F7162ED64EC600370797 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE2902BC2EE1C53D00089530 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE2902CB2EE1C5D900089530 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +97,8 @@
 			isa = PBXGroup;
 			children = (
 				CE13F71B2ED64EC600370797 /* PetProject */,
+				CE2902C02EE1C53D00089530 /* PetProjectTests */,
+				CE2902CF2EE1C5D900089530 /* PetProjectTestsUI */,
 				CE13F71A2ED64EC600370797 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				CE13F7192ED64EC600370797 /* PetProject.app */,
+				CE2902BF2EE1C53D00089530 /* PetProjectTests.xctest */,
+				CE2902CE2EE1C5D900089530 /* PetProjectTestsUI.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +138,52 @@
 			productReference = CE13F7192ED64EC600370797 /* PetProject.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CE2902BE2EE1C53D00089530 /* PetProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE2902C52EE1C53D00089530 /* Build configuration list for PBXNativeTarget "PetProjectTests" */;
+			buildPhases = (
+				CE2902BB2EE1C53D00089530 /* Sources */,
+				CE2902BC2EE1C53D00089530 /* Frameworks */,
+				CE2902BD2EE1C53D00089530 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE2902C42EE1C53D00089530 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CE2902C02EE1C53D00089530 /* PetProjectTests */,
+			);
+			name = PetProjectTests;
+			packageProductDependencies = (
+			);
+			productName = PetProjectTests;
+			productReference = CE2902BF2EE1C53D00089530 /* PetProjectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CE2902CD2EE1C5D900089530 /* PetProjectTestsUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE2902D62EE1C5D900089530 /* Build configuration list for PBXNativeTarget "PetProjectTestsUI" */;
+			buildPhases = (
+				CE2902CA2EE1C5D900089530 /* Sources */,
+				CE2902CB2EE1C5D900089530 /* Frameworks */,
+				CE2902CC2EE1C5D900089530 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE2902D52EE1C5D900089530 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CE2902CF2EE1C5D900089530 /* PetProjectTestsUI */,
+			);
+			name = PetProjectTestsUI;
+			packageProductDependencies = (
+			);
+			productName = PetProjectTestsUI;
+			productReference = CE2902CE2EE1C5D900089530 /* PetProjectTestsUI.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -82,6 +196,14 @@
 				TargetAttributes = {
 					CE13F7182ED64EC600370797 = {
 						CreatedOnToolsVersion = 26.1.1;
+					};
+					CE2902BE2EE1C53D00089530 = {
+						CreatedOnToolsVersion = 26.1.1;
+						TestTargetID = CE13F7182ED64EC600370797;
+					};
+					CE2902CD2EE1C5D900089530 = {
+						CreatedOnToolsVersion = 26.1.1;
+						TestTargetID = CE13F7182ED64EC600370797;
 					};
 				};
 			};
@@ -100,12 +222,28 @@
 			projectRoot = "";
 			targets = (
 				CE13F7182ED64EC600370797 /* PetProject */,
+				CE2902BE2EE1C53D00089530 /* PetProjectTests */,
+				CE2902CD2EE1C5D900089530 /* PetProjectTestsUI */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CE13F7172ED64EC600370797 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE2902BD2EE1C53D00089530 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE2902CC2EE1C5D900089530 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +260,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CE2902BB2EE1C53D00089530 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE2902CA2EE1C5D900089530 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CE2902C42EE1C53D00089530 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE13F7182ED64EC600370797 /* PetProject */;
+			targetProxy = CE2902C32EE1C53D00089530 /* PBXContainerItemProxy */;
+		};
+		CE2902D52EE1C5D900089530 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE13F7182ED64EC600370797 /* PetProject */;
+			targetProxy = CE2902D42EE1C5D900089530 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		CE13F7382ED64EC800370797 /* Debug */ = {
@@ -310,6 +475,88 @@
 			};
 			name = Release;
 		};
+		CE2902C62EE1C53D00089530 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 255G24QWZ2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ukrlan.PetProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PetProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PetProject";
+			};
+			name = Debug;
+		};
+		CE2902C72EE1C53D00089530 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 255G24QWZ2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ukrlan.PetProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PetProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PetProject";
+			};
+			name = Release;
+		};
+		CE2902D72EE1C5D900089530 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 255G24QWZ2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ukrlan.PetProjectTestsUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PetProject;
+			};
+			name = Debug;
+		};
+		CE2902D82EE1C5D900089530 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 255G24QWZ2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ukrlan.PetProjectTestsUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PetProject;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -327,6 +574,24 @@
 			buildConfigurations = (
 				CE13F73B2ED64EC800370797 /* Debug */,
 				CE13F73C2ED64EC800370797 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE2902C52EE1C53D00089530 /* Build configuration list for PBXNativeTarget "PetProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE2902C62EE1C53D00089530 /* Debug */,
+				CE2902C72EE1C53D00089530 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE2902D62EE1C5D900089530 /* Build configuration list for PBXNativeTarget "PetProjectTestsUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE2902D72EE1C5D900089530 /* Debug */,
+				CE2902D82EE1C5D900089530 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

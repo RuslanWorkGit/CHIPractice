@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SettingView: View {
-
     @State private var selectedTemperatureUnit = AppSettings.shared.temperatureUnit
     @State private var selectedRainThreshold = AppSettings.shared.rainThreshold
     @State private var isRainAlertEnabled = AppSettings.shared.isRainAlertEnabled
