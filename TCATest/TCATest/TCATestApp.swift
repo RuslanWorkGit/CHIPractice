@@ -14,11 +14,17 @@ struct TCATestApp: App {
         CounterFeature()
             ._printChanges()
     }
+
+    static let habitStore = Store(
+        initialState: HabitsFeature.State(),
+        reducer: { HabitsFeature() }
+    )
     
     var body: some Scene {
         WindowGroup {
             //ContentView()
-            CounterView(store: TCATestApp.store)
+            HabitsView(store: Self.habitStore)
+            //CounterView(store: TCATestApp.store)
         
         }
     }
